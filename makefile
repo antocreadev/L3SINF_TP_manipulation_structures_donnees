@@ -31,3 +31,9 @@ $(OBJDIR)/$(t).o: $(SRC).c
 clean:
 	rm -f $(OBJDIR)/*.o $(t)
 	rm -f bin/*
+
+
+exo1 : 
+	gcc -c -o obj/menghiexo1.o src/menghiexo1.c
+	gcc -c -o obj/menghilisteint.o src/menghilisteint.c
+	gcc -o bin/menghiexo1 obj/menghiexo1.o obj/menghilisteint.o
