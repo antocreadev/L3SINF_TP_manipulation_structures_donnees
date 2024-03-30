@@ -81,6 +81,7 @@ void inverse_pile(Element** p_sommet){
     {
         empiler(p_sommet, datas[k]);
     }
+    free(datas);
 }
 
 
@@ -107,8 +108,6 @@ int main() {
     inverse_pile(&sommet);
     printf("--------\n");
     afficher(sommet);
-
-
 
     return 0;
 }
