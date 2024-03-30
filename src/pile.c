@@ -34,22 +34,40 @@ void afficher(Element *p_sommet) {
     printf("\n");
 }
 
+int recuperer_valeur_sommet(Element* p_sommet){
+    printf("Contenu de la pile : ");
+    printf("Le sommet à pour valeur : %d \nIl a pour suivant l'adresse : %p \nLe suivant à pour valeur : %d \n",p_sommet->data, p_sommet->next, *(p_sommet->next) );
+    return p_sommet->data;
+}
+
+int depile(Element** p_sommet){
+    int data = (*p_sommet)->data;
+    Element* next = (*p_sommet)->next;
+    free(*p_sommet);
+    *p_sommet = next;
+
+    return data;
+}
+
+
+
 int main() {
     Element *sommet = NULL;
 
     si_vide(sommet) ? printf("le sommet est null \n") : printf("le sommet n'est pas null \n");
-
-    printf("%p \n", &sommet);
 
     empiler(&sommet, 5);
     empiler(&sommet, 10);
     empiler(&sommet, 15);
 
     si_vide(sommet) ? printf("le sommet est null \n") : printf("le sommet n'est pas null \n");
-
-
-    printf("Contenu de la pile : ");
+    recuperer_valeur_sommet(sommet);
     afficher(sommet);
-
+    depile(&sommet);
+    afficher(sommet);
+    empiler(&sommet, 15);
+    afficher(sommet);
+    depile(&sommet);
+    afficher(sommet);
     return 0;
 }
