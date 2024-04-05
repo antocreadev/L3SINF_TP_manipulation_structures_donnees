@@ -1,11 +1,49 @@
+/**
+* @Description: pile.c
+* @Author: Anthony Menghi alias @antocreadev - contact@antocrea.dev
+* @Created: 2024-04-05
+*/
+
+/* Inclusion des librairies ========== */
 #include <stdio.h>
 #include <stdlib.h>
+#include "include/pile.h"
 
-struct elementInPile {
-    int data;
-    struct elementInPile *next;
-};
-typedef struct elementInPile Element;
+/* Macros et constantes ============== */
+/* Variables globales ================ */
+Element *sommet = NULL;
+/* Déclaration des prototypes ======== */
+/* Fonction principale =============== */
+int main() {
+
+    // Pour l'implémenation d'une pile, j'ai choisi d'utiliser une liste chainée.
+    // En effet, une liste chainée est une structure de données dynamique qui permet d'ajouter et de supprimer des éléments en temps constant. De plus il est facile d'ajouter ou de supprimer un élément en tête de liste. Et avec une liste chaînée, la gestion de la mémoire est simplifiée car les nœuds de la liste sont alloués individuellement au besoin. Cela évite les problèmes liés à l'allocation statique de mémoire ou à la nécessité de redimensionner un tableau dynamique. Juste milieu sur la complexité d'implémentation légèrement plus complexe à mettre en œuvre qu'un tableau statique, une liste chaînée reste relativement simple à coder, les opérations d'ajout et de suppression sont simples à mettre en œuvre avec les pointeurs.
+
+    si_vide(sommet) ? printf("le sommet est null \n") : printf("le sommet n'est pas null \n");
+
+    empiler(&sommet, 5);
+    empiler(&sommet, 10);
+    empiler(&sommet, 15);
+
+    si_vide(sommet) ? printf("le sommet est null \n") : printf("le sommet n'est pas null \n");
+    recuperer_valeur_sommet(sommet);
+    afficher(sommet);
+    depile(&sommet);
+    afficher(sommet);
+    empiler(&sommet, 15);
+    afficher(sommet);
+    depile(&sommet);
+    empiler(&sommet, 15);
+    afficher(sommet);
+    printf("--------\n");
+    inverse_pile(&sommet);
+    printf("--------\n");
+    afficher(sommet);
+
+    return 0;
+}
+
+/* Fonctions secondaires ============= */
 
 int si_vide(Element *p_sommet) {
     return p_sommet == NULL;
@@ -23,8 +61,6 @@ void empiler(Element **p_sommet, int valeur) {
     new_element->next = *p_sommet;
     *p_sommet = new_element;
 }
-
-
 
 void afficher(Element *p_sommet) {
     while (p_sommet != NULL) {
@@ -82,36 +118,4 @@ void inverse_pile(Element** p_sommet){
         empiler(p_sommet, datas[k]);
     }
     free(datas);
-}
-
-
-int main() {
-
-    // Pour l'implémenation d'une pile, j'ai choisi d'utiliser une liste chainée.
-    // En effet, une liste chainée est une structure de données dynamique qui permet d'ajouter et de supprimer des éléments en temps constant. De plus il est facile d'ajouter ou de supprimer un élément en tête de liste. Et avec une liste chaînée, la gestion de la mémoire est simplifiée car les nœuds de la liste sont alloués individuellement au besoin. Cela évite les problèmes liés à l'allocation statique de mémoire ou à la nécessité de redimensionner un tableau dynamique. Juste milieu sur la complexité d'implémentation légèrement plus complexe à mettre en œuvre qu'un tableau statique, une liste chaînée reste relativement simple à coder, les opérations d'ajout et de suppression sont simples à mettre en œuvre avec les pointeurs.
-
-    Element *sommet = NULL;
-
-    si_vide(sommet) ? printf("le sommet est null \n") : printf("le sommet n'est pas null \n");
-
-    empiler(&sommet, 5);
-    empiler(&sommet, 10);
-    empiler(&sommet, 15);
-
-    si_vide(sommet) ? printf("le sommet est null \n") : printf("le sommet n'est pas null \n");
-    recuperer_valeur_sommet(sommet);
-    afficher(sommet);
-    depile(&sommet);
-    afficher(sommet);
-    empiler(&sommet, 15);
-    afficher(sommet);
-    depile(&sommet);
-    empiler(&sommet, 15);
-    afficher(sommet);
-    printf("--------\n");
-    inverse_pile(&sommet);
-    printf("--------\n");
-    afficher(sommet);
-
-    return 0;
 }
